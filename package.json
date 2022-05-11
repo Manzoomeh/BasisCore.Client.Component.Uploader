@@ -1,0 +1,48 @@
+{
+  "name": "uploader",
+  "version": "1.0.0",
+  "description": "component for manage upload file.",
+  "main": "dist/basiscore.uploader.component.js",
+  "types": "dist/basiscore.uploader.component.d.ts",
+  "scripts": {
+    "dev": "webpack serve --mode=development",
+    "ws": "node websocket-server/server.js",
+    "prerel": "if exist dist rd /s /q dist",
+    "rel": "webpack --mode=production",
+    "prepub": "if exist dist rd /s /q dist",
+    "pub": "webpack --mode=production",
+    "postpub": "dts-bundle-generator -o dist/basiscore.uploader.component.d.ts src/index.ts"
+  },
+  "keywords": [
+    "BasisCore",
+    "TypeScript",
+    "ClientSide",
+    "Multipart",
+    "Uploader"
+  ],
+  "files": [
+    "dist/**/*"
+  ],
+  "author": "Manzoomeh Negaran <info@manzoomeh.ir> (https://www.manzoomeh.ir)",
+  "license": "ISC",
+  "homepage": "https://github.com/Manzoomeh/BasisCore.Client.Component.uploader",
+  "bugs": {
+    "url": "https://github.com/Manzoomeh/BasisCore.Client.Component.uploader/issues"
+  },
+  "repository": "https://github.com/Manzoomeh/BasisCore.Client.Component.uploader",
+  "dependencies": {
+    "basiscore": "^2.10.2"
+  },
+  "devDependencies": {
+    "circular-dependency-plugin": "^5.2.2",
+    "css-loader": "^6.7.1",
+    "express-fileupload": "^1.3.1",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.6.4",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0"
+  }
+}
