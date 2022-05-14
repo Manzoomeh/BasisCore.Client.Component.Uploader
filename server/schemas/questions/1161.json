@@ -1,0 +1,69 @@
+{
+  "setting": {
+    "keepalive": true
+  },
+  "sources": [
+    {
+      "options": {
+        "tableName": "answer.data",
+        "keyFieldName": null,
+        "statusFieldName": null,
+        "mergeType": 0
+      },
+      "data": [
+        {
+          "schemaId": 1161,
+          "schemaVersion": 1.1,
+          "lid": 1,
+          "baseVocab": "http://schema.site/FA/vo",
+          "sections": [
+            {
+              "id": 1,
+              "title": "Sec 1",
+              "description": "Simple description"
+            },
+            {
+              "id": 2
+            }
+          ],
+          "questions": [
+            {
+              "prpId": 1,
+              "title": "وب سایت",
+              "multi": true,
+              "parts": [
+                {
+                  "part": 1,
+                  "viewType": "text"
+                }
+              ]
+            },
+            {
+              "prpId": 2,
+              "title": "فایل ها",
+              "multi": true,
+              "parts": [
+                {
+                  "part": 1,
+                  "viewType": "component.uploader.schemaUploader",
+                  "options": {
+                    "dateProvider": "basisCalendar",
+                    "displayNote": false,
+                    "culture": "fa",
+                    "lid": 2,
+                    "yearsList": false,
+                    "monthList": false,
+                    "rangeDates": false,
+                    "switchType": false,
+                    "theme": "basic",
+                    "type": "click"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

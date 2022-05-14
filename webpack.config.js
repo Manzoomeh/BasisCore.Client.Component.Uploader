@@ -1,7 +1,8 @@
 const path = require("path");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const ftpServer = require("./server/ftp-server");
+const ftpServer = require("./server/ftp");
+const schemaServer = require("./server/schema");
 
 module.exports = (env, options) => {
   return {
@@ -42,6 +43,7 @@ module.exports = (env, options) => {
       ],
       onBeforeSetupMiddleware: function (server) {
         server.app.use("/server/ftp", ftpServer);
+        server.app.use("/schema", schemaServer);
       },
       open: true,
     },
