@@ -39,18 +39,8 @@ export default abstract class UploaderBaseComponent
     }
     return Promise.resolve();
   }
-  //abstract addFilesFromServerAsync(): Promise<void>;
 
   abstract runAsync(source?: ISource): Promise<any>;
-  //  {
-  //   console.log("sdsdsds");
-  //   if (!this._run) {
-  //     this._run = true;
-
-  //     this.addFilesFromServerAsync();
-  //   }
-  //   return Promise.resolve();
-  // }
 
   addFilesFromClient(input: HTMLInputElement) {
     const files = Array.from(input.files);
@@ -92,7 +82,6 @@ export default abstract class UploaderBaseComponent
       .querySelector("[data-item-btn-delete]")
       .addEventListener("click", (e) => {
         e.preventDefault();
-        const id = fileElement.getAttribute("data-item-server-id");
         if (file.id) {
           file.mustDelete = true;
         } else {

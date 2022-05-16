@@ -72,9 +72,6 @@ export default class UploaderComponent extends UploaderBaseComponent {
       var response = await fetch(url, { method: "GET" });
       const images: IFileInfo[] = await response.json();
       if (images) {
-        const container = this.container.querySelector(
-          "[data-bc-uploader-image-list]"
-        );
         images.forEach((image) => this.addFileToUI(image));
       }
     }

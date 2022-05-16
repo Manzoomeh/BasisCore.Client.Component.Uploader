@@ -1,4 +1,5 @@
 import { IPartValue, ISource } from "basiscore";
+import IFileInfo from "../uploader-base/IFileInfo";
 import UploaderBaseComponent from "../uploader-base/UploaderBaseComponent";
 import ISchemaUploaderOptions from "./ISchemaUploaderOptions";
 
@@ -18,10 +19,23 @@ export default class SchemaUploaderComponent extends UploaderBaseComponent {
   }
 
   setValues(values: IPartValue[]) {
-    // if (values && values.length == 1) {
-    //   this.dateRange.datePickerInput.value = values[0].value;
-    // }
-    console.table(values);
+    if (values) {
+      values
+        .map((x) => {
+          const retVal: IFileInfo = {
+            id: x.id,
+            title: x.value.title,
+            type: x.value.type,
+            size: 0,
+            url: null,
+            image: null,
+            data: null,
+            mustDelete: false,
+          };
+          return retVal;
+        })
+        .forEach((image) => this.addFileToUI(image));
+    }
   }
 
   getValuesForValidate() {
@@ -55,19 +69,12 @@ export default class SchemaUploaderComponent extends UploaderBaseComponent {
       });
     let result: Array<IFileValue> = null;
     result = await Promise.all(process);
-    // console.log(l);
-    // while (l.some((x) => x.readyState === FileReader.LOADING)) {
-    //   const currentDate = Date.now();
-    //   console.log("d");
-    // }
-
     const mustAdded = result.map((x) => {
       const retVal: IPartValue = {
         value: x,
       };
       return retVal;
     });
-
     return mustAdded.length > 0 ? mustAdded : null;
   }
 
@@ -86,6 +93,10 @@ export default class SchemaUploaderComponent extends UploaderBaseComponent {
       });
 
     return Promise.resolve(mustDelete.length > 0 ? mustDelete : null);
+  }
+
+  public getEditedValuesAsync(): Promise<IPartValue[]> {
+    return this.getAddedValuesAsync();
   }
 }
 
