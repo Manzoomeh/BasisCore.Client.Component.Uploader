@@ -15,36 +15,42 @@ export default abstract class UploaderBaseComponent
 {
   protected readonly owner: IUserDefineComponent;
   protected multiple: boolean = false;
-  private _run: boolean = false;
+
   protected readonly container: Element;
-  protected _files: IDictionary<IFileInfo>;
+  protected files: IDictionary<IFileInfo>;
   constructor(owner: IUserDefineComponent) {
     this.owner = owner;
     this.container = document.createElement("div");
     this.container.innerHTML = layout;
     this.owner.setContent(this.container);
+    this.files = {};
   }
 
-  abstract initializeAsync(): Promise<void>;
-  abstract addFilesFromServerAsync(): Promise<void>;
-
-  async runAsync(source?: ISource): Promise<any> {
-    if (!this._run) {
-      this._run = true;
-      this.addFilesFromServerAsync();
-      const input = this.container.querySelector<HTMLInputElement>(
-        "[data-bc-uploader-input]"
-      );
-      input.addEventListener("change", (e) => {
-        e.preventDefault();
-        this.addFilesFromClient(input);
-      });
-      if (this.multiple) {
-        input.setAttribute("multiple", "");
-      }
+  initializeAsync(): Promise<void> {
+    const input = this.container.querySelector<HTMLInputElement>(
+      "[data-bc-uploader-input]"
+    );
+    input.addEventListener("change", (e) => {
+      e.preventDefault();
+      this.addFilesFromClient(input);
+    });
+    if (this.multiple) {
+      input.setAttribute("multiple", "");
     }
     return Promise.resolve();
   }
+  //abstract addFilesFromServerAsync(): Promise<void>;
+
+  abstract runAsync(source?: ISource): Promise<any>;
+  //  {
+  //   console.log("sdsdsds");
+  //   if (!this._run) {
+  //     this._run = true;
+
+  //     this.addFilesFromServerAsync();
+  //   }
+  //   return Promise.resolve();
+  // }
 
   addFilesFromClient(input: HTMLInputElement) {
     const files = Array.from(input.files);
@@ -79,7 +85,7 @@ export default abstract class UploaderBaseComponent
     const imageElement =
       fileElement.querySelector<HTMLImageElement>("[data-item-image]");
     const localId = this.owner.getRandomName("uploader_");
-    this._files[localId] = file;
+    this.files[localId] = file;
     (imageElement as any).src =
       file.image ?? ExtensionList[file.type] ?? ExtensionList["???"];
     fileElement
@@ -90,7 +96,7 @@ export default abstract class UploaderBaseComponent
         if (file.id) {
           file.mustDelete = true;
         } else {
-          delete this._files[localId];
+          delete this.files[localId];
         }
         fileElement.remove();
       });

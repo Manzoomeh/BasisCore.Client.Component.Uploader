@@ -9,15 +9,20 @@
     <title>Uploader - Schema</title>
 </head>
 
-<body>
-    <basis core="component.uploader.uploader" run="atclient" file-get-url="/server/ftp/list" file-post-url="/server/ftp/add" multiple></basis>
+<body dir="rtl">
+    <button data-btn-add>Add</button>
+    <Basis core="schema" run="atclient" schemaUrl="/schema/questions" id="1161" version="1.1" button="[data-btn-add]" resultSourceId="demo.data">
+    </Basis>
+    <button data-btn-add>Add</button>
+    <basis core="callback" run="atclient" triggers="demo.data"></basis>
 
     <script src="/basiscore.js"></script>
     <script>
         const host = {
             repositories: {
-                uploader: "/basiscore.uploader.component.js"
-            },
+                "uploader.schemaUploader": "/basiscore.uploader.component.js",
+            }
+
         }
     </script>
 </body>

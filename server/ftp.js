@@ -22,8 +22,22 @@ router.get("/list", function (req, res) {
 });
 
 router.post("/add", function (req, res) {
-  console.table(req.query);
-  console.log(req.files);
+  if (req.query) {
+    console.table(req.query);
+  }
+  if (req.files) {
+    console.table(
+      Object.getOwnPropertyNames(req.files)
+        .map((x) => req.files[x])
+        .map((x) => {
+          return {
+            name: x.name,
+            size: x.size,
+            mime: x.mimetype,
+          };
+        })
+    );
+  }
   res.send("ok");
 });
 module.exports = router;

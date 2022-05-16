@@ -6,20 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Uploader - Stand Alone</title>
+    <title>Document</title>
 </head>
 
 <body>
-    <basis core="component.uploader.uploader" run="atclient" file-get-url="/server/ftp/list" file-post-url="/server/ftp/add" multiple></basis>
-
-    <script src="/basiscore.js"></script>
-    <script>
-        const host = {
-            repositories: {
-                uploader: "/basiscore.uploader.component.js"
-            },
-        }
-    </script>
+    <ul>
+        <li><a href="./stand-alone.html">Stand Alone</a></li>
+        <li>Schema
+            <ul>
+                <li><a href="./schema-new.html">New</a></li>
+                <li><a href="./schema-edit.html">Edit</a></li>
+            </ul>
+        </li>
+    </ul>
 </body>
 
 </html>

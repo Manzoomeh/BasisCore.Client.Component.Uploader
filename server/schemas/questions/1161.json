@@ -47,16 +47,7 @@
                   "part": 1,
                   "viewType": "component.uploader.schemaUploader",
                   "options": {
-                    "dateProvider": "basisCalendar",
-                    "displayNote": false,
-                    "culture": "fa",
-                    "lid": 2,
-                    "yearsList": false,
-                    "monthList": false,
-                    "rangeDates": false,
-                    "switchType": false,
-                    "theme": "basic",
-                    "type": "click"
+                    "multiple": true
                   }
                 }
               ]

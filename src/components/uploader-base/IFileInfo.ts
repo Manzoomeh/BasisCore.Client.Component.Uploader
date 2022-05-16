@@ -1,5 +1,5 @@
 export default interface IFileInfo {
-  id?: string;
+  id?: any;
   title: string;
   image?: string | ArrayBuffer;
   type: string;

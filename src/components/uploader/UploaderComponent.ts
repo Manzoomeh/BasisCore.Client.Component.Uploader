@@ -1,10 +1,11 @@
-import { IToken } from "basiscore";
+import { ISource, IToken } from "basiscore";
 import IFileInfo from "../uploader-base/IFileInfo";
 import UploaderBaseComponent from "../uploader-base/UploaderBaseComponent";
 
 export default class UploaderComponent extends UploaderBaseComponent {
   private _fileGetUrl: IToken<string>;
   private _filePostUrl: IToken<string>;
+  private _fileListLoadFromServer: boolean = false;
 
   initializeAsync(): Promise<void> {
     this._fileGetUrl = this.owner.getAttributeToken("file-get-url");
@@ -18,12 +19,12 @@ export default class UploaderComponent extends UploaderBaseComponent {
         this.sendUserActionToServerAsync();
       });
 
-    return Promise.resolve();
+    return super.initializeAsync();
   }
 
   private async sendUserActionToServerAsync(): Promise<void> {
-    const files = Object.getOwnPropertyNames(this._files).map(
-      (x) => this._files[x]
+    const files = Object.getOwnPropertyNames(this.files).map(
+      (x) => this.files[x]
     );
     const mustDelete = files
       .filter((x) => x.mustDelete)
@@ -55,8 +56,15 @@ export default class UploaderComponent extends UploaderBaseComponent {
     }
   }
 
+  async runAsync(source?: ISource): Promise<any> {
+    if (!this._fileListLoadFromServer) {
+      this._fileListLoadFromServer = true;
+      await this.addFilesFromServerAsync();
+    }
+  }
+
   async addFilesFromServerAsync(): Promise<void> {
-    this._files = {};
+    this.files = {};
     this.container.querySelector("[data-bc-uploader-image-list]").innerHTML =
       "";
     if (this._fileGetUrl) {
